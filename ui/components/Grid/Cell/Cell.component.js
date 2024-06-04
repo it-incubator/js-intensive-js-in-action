@@ -11,7 +11,6 @@ export function CellComponent(x, y) {
 }
 
 async function render(element, x, y) {
-
     const googlePosition = await getGooglePosition();
     const player1Position = await getPlayerPosition(1);
     const player2Position = await getPlayerPosition(2);
@@ -25,6 +24,4 @@ async function render(element, x, y) {
     if (player2Position.x === x && player2Position.y === y) {
         element.append(PlayerComponent(2).element)
     }
-
-
 }

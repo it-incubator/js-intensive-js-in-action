@@ -1,9 +1,14 @@
-import {getGridSize} from '../../../core/state-manager.js';
+import {getGridSize, subscribe} from '../../../core/state-manager.js';
 import {CellComponent} from './Cell/Cell.component.js';
 
 export function GridComponent() {
+    console.log('GRID COMPONENT CREATING')
     const element = document.createElement('table');
     element.classList.add('grid')
+
+    subscribe(() => {
+        render(element);
+    })
 
     render(element);
 
@@ -11,6 +16,8 @@ export function GridComponent() {
 }
 
 async function render(element) {
+    console.log('GRID COMPONENT RENDERING')
+     element.innerHTML = '';
      const gridSizePromise = getGridSize();
      const gridSize = await gridSizePromise;
 
