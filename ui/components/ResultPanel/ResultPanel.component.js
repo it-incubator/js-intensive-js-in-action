@@ -1,17 +1,21 @@
-import {getGooglePoints, getPlayerPoints, subscribe} from '../../../core/state-manager.js';
+import {getGooglePoints, getPlayerPoints, subscribe, unsubscribe} from '../../../core/state-manager.js';
+import {EVENTS} from '../../../core/constants.js';
 
 export function ResultPanelComponent() {
     const element = document.createElement('div');
 
     element.classList.add('result-panel');
 
-    subscribe(() => {
-        render(element);
-    })
+    const observer = (e) => {
+        if (e.name === EVENTS.SCORES_CHANGED) {
+            render(element);
+        }
+    };
+    subscribe(observer)
 
     render(element);
 
-    return {element};
+    return {element, cleanup: () => {unsubscribe(observer)}};
 }
 
 async function render(element) {
